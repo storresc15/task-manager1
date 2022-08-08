@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Save Task</title>
+</head>
+
+<body>
+
+<div class="container">
+	<h3>Task Management</h3>
+	<hr>
+	
+	<p class="h4 mb-4"> Save Task </p>
+	<form action ="#" th:action="@{/tasks/save}"
+			th:object="${task}" method="POST">
+	
+	<!-- Add hidden form field to handle update -->
+	<input type="hidden" th:field="*{id}" />
+	<!-- Add hidden form field to handle update -->
+	<input type="hidden" th:field="*{owner}" />
+	<!-- Add hidden form field to handle update -->
+	<input type="hidden" th:field="*{createdDate}" />
+			
+	<input type="text" th:field="*{title}"
+		class="form-control mb-4 col-4" placeholder="Title">
+	<!-- Example of test area 
+	<input type="text" th:field="*{description}"
+		class="form-control mb-4 col-4" placeholder="Description">
+		-->
+		
+	<!-- Example of test area -->
+	<textarea th:field="*{description}" class="form-control mb-4 col-6" placeholder="Description" rows="3"></textarea>		
+	
+	<!--  <input type="text" th:field="*{priority}"
+		class="form-control mb-4 col-4" placeholder="Priority">	-->
+	<h5>Priority</h5>
+	<input type="range" th:field="*{priority}" class="form-range mb-4" min="1" max="5" step="1">
+	
+	<h5>Category</h5>
+	<input type="range" th:field="*{category}" class="form-range mb-4" min="1" max="5" step="1">
+		
+	<!-- <input type="text" th:field="*{dueDate}"
+		class="form-control mb-4 col-4" placeholder="Due Date">	 -->
+	
+	<input type="date" th:field="*{dueDate}" class="form-control mb-4 col-4"
+       placeholder="Due Date">
+    <h4>Completed?</h4>
+    <input class="form-control mb-4 col-1" type="checkbox" th:field="*{completed}">
+
+		
+	<button type="submit" class="btn btn-info col-2">Save</button>	
+					
+	</form>
+	
+	<hr>
+	<a th:href="@{/tasks/list}">Back to Task List</a>
+</div>
+
+</body>
+
+</html>
