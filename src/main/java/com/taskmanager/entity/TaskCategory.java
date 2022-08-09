@@ -30,6 +30,9 @@ public class TaskCategory {
 	@Column(name="priority")
 	private int priority;
 	
+	@Column(name="percentage")
+	private int percentage;
+	
 	public TaskCategory() {
 		
 	}
@@ -72,12 +75,28 @@ public class TaskCategory {
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
+	
+
+	public int getPercentage() {
+		return percentage;
+	}
+
+	public void setPercentage(int percentage) {
+		this.percentage = percentage;
+	}
 
 	@Override
 	public String toString() {
-		return "TaskCategory [id=" + id + ", owner=" + owner.getId() + ", name=" + name + ", priority=" + priority + "]";
+		return "TaskCategory [id=" + id + ", owner=" + owner.getId() + ", name=" + name + ", priority=" + priority
+				+ ", percentage=" + percentage + "]";
 	}
 
+	/*@Override
+	public String toString() {
+		return "TaskCategory [id=" + id + ", owner=" + owner.getId() + ", name=" + name + ", priority=" + priority + "]";
+	}*/
+	
+	
 	
 
 }

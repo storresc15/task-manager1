@@ -99,9 +99,14 @@ public class TaskController {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = auth.getName();
+		TaskOwner theOwner = taskOwnerService.findByEmail(currentPrincipalName);
+		
 		if(theTask.getOwner() == null) {
-			TaskOwner theOwner = taskOwnerService.findByEmail(currentPrincipalName);
 			theTask.setOwner(theOwner);
+		}
+		
+		if(theTask.getCategory() == null) {
+			theTask.setCategory(theOwner.getCategories().get(0));
 		}
 		
 		//Save the task

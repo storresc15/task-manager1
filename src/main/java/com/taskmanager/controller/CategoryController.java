@@ -30,20 +30,31 @@ public class CategoryController {
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
 		//create model attrigute to bind form data
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = auth.getName();
+		
 		TaskCategory theTaskCategory = new TaskCategory();
+		TaskOwner theOwner = taskOwnerService.findByEmail(currentPrincipalName);
 		
 		theModel.addAttribute("taskCategory",theTaskCategory);
+		theModel.addAttribute("taskOwner", theOwner);
 		
 		return "categories/category-form";
 	}
 	
 	@GetMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("categoryId") int theId, Model theModel) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = auth.getName();
+		
 		//get the task from the service
 		TaskCategory theTaskCategory = categoryService.findById(theId);
+		TaskOwner theOwner = taskOwnerService.findByEmail(currentPrincipalName);
 		
 		//set task as a model attribute to pre-populate the form
 		theModel.addAttribute("taskCategory", theTaskCategory);
+		theModel.addAttribute("taskOwner", theOwner);
 		
 		//send over to our form
 		return "categories/category-form";
@@ -59,6 +70,12 @@ public class CategoryController {
 		if(theTaskCategory.getOwner() == null) {
 			TaskOwner theOwner = taskOwnerService.findByEmail(currentPrincipalName);
 			theTaskCategory.setOwner(theOwner);
+		}
+		if(theTaskCategory.getPriority() == 0) {
+			theTaskCategory.setPriority(1);
+		}
+		if(theTaskCategory.getPercentage() == 0) {
+			theTaskCategory.setPercentage(1);
 		}
 		
 		//Save the task

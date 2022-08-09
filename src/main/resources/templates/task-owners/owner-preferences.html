@@ -70,7 +70,8 @@
 		<thead class="thead-dark">
 			<tr>
 				<th>Name</th>
-				<th>Priority</th>
+				<th th:if="${#strings.toString(taskOwner.prioritySelection)} == 'CategoryGrade'">Priority</th>
+				<th th:if="${#strings.toString(taskOwner.prioritySelection)} == 'CategoryPercent'">Percentage</th>
 				<th>Action</th>
 			</tr>
 		</thead>
@@ -79,7 +80,8 @@
 			<tr th:each="tempCat : ${categories}">
 			
 				<td th:text="${tempCat.name}" />	
-				<td th:text="${tempCat.priority}" />
+				<td th:if="${#strings.toString(taskOwner.prioritySelection)} == 'CategoryGrade'" th:text="${tempCat.priority}" />
+				<td th:if="${#strings.toString(taskOwner.prioritySelection)} == 'CategoryPercent'" th:text="${tempCat.percentage}" />
 				
 				<!-- Add update button/link -->
 				<td>
