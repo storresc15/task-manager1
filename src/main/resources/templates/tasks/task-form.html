@@ -41,11 +41,22 @@
 	
 	<!--  <input type="text" th:field="*{priority}"
 		class="form-control mb-4 col-4" placeholder="Priority">	-->
+	<div th:if="${!displayCategories}">
 	<h5>Priority</h5>
 	<input type="range" th:field="*{priority}" class="form-range mb-4" min="1" max="5" step="1">
+	</div>
 	
+	<div th:if="${displayCategories}">
 	<h5>Category</h5>
-	<input type="number" th:field="*{category}" class="form-control mb-4 col-2">
+	<!--  <input type="number" th:field="*{category}" class="form-control mb-4 col-2"> -->
+	<select class="form-control mb-4 col-4"  th:field="*{category}">
+	             <option th:each="entry : ${sortSelection}"
+	                             th:value="${entry.getId()}"
+	                             th:text="${entry.getName()}" >
+	                             </option>
+	</select>
+	
+	</div>
 		
 	<!-- <input type="text" th:field="*{dueDate}"
 		class="form-control mb-4 col-4" placeholder="Due Date">	 -->

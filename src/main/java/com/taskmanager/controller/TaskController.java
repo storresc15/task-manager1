@@ -1,7 +1,10 @@
 package com.taskmanager.controller;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.taskmanager.entity.Task;
+import com.taskmanager.entity.TaskCategory;
 import com.taskmanager.entity.TaskOwner;
 import com.taskmanager.service.TaskOwnerService;
 import com.taskmanager.service.TaskService;
@@ -77,7 +81,26 @@ public class TaskController {
 		//create model attrigute to bind form data
 		Task theTask = new Task();
 		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = auth.getName();
+		TaskOwner theOwner = taskOwnerService.findByEmail(currentPrincipalName);
+		
+		Boolean displayCategories = !theOwner.getPrioritySelection().equals("Default");
+		
+		List<TaskCategory> selectionOptions = new ArrayList<TaskCategory>();
+		
+		for(TaskCategory tc : theOwner.getCategories()) {
+			//selectionOptions.put(tc.getName(),tc );
+			selectionOptions.add(tc);
+		}
+		
+		
+		//System.out.println("The Map value: " + selectionOptions);
+		//System.out.println("The Map keyset value: " + selectionOptions);
+		
+		theModel.addAttribute("sortSelection",selectionOptions);
 		theModel.addAttribute("task",theTask);
+		theModel.addAttribute("displayCategories",displayCategories);
 		
 		return "tasks/task-form";
 	}
@@ -87,8 +110,24 @@ public class TaskController {
 		//get the task from the service
 		Task theTask = taskService.findById(theId);
 		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = auth.getName();
+		TaskOwner theOwner = taskOwnerService.findByEmail(currentPrincipalName);
+		
+		Boolean displayCategories = !theOwner.getPrioritySelection().equals("Default");
+		
+		List<TaskCategory> selectionOptions = new ArrayList<TaskCategory>();
+		
+		for(TaskCategory tc : theOwner.getCategories()) {
+			//selectionOptions.put(tc.getName(),tc );
+			selectionOptions.add(tc);
+		}
+		
+		
 		//set task as a model attribute to pre-populate the form
+		theModel.addAttribute("sortSelection",selectionOptions);
 		theModel.addAttribute("task", theTask);
+		theModel.addAttribute("displayCategories",displayCategories);
 		
 		//send over to our form
 		return "tasks/task-form";
