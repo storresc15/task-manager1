@@ -101,6 +101,7 @@ public class TaskController {
 		theModel.addAttribute("sortSelection",selectionOptions);
 		theModel.addAttribute("task",theTask);
 		theModel.addAttribute("displayCategories",displayCategories);
+		theModel.addAttribute("taskOwner",theOwner);
 		
 		return "tasks/task-form";
 	}
@@ -128,6 +129,7 @@ public class TaskController {
 		theModel.addAttribute("sortSelection",selectionOptions);
 		theModel.addAttribute("task", theTask);
 		theModel.addAttribute("displayCategories",displayCategories);
+		theModel.addAttribute("taskOwner",theOwner);
 		
 		//send over to our form
 		return "tasks/task-form";

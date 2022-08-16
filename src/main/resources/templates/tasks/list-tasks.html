@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
     <!-- Required meta tags -->
@@ -14,9 +15,14 @@
 	<title>Task Management</title>
 </head>
 
+<header th:replace="fragments/header">
+</header>
+
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<!--  <div th:replace="fragments/header :: header">&nbsp;</div> -->
+
+<!--   <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">Task Management</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -34,15 +40,16 @@
       </li>
     </ul>
   </div>
-</nav>
+</nav> -->
 
 
 
 <div class="container">
 
-	<h3>Task Management</h3>
-	<h5 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h5>
-	<p  th:text="${taskOwner.firstName}">
+	<h3>My Tasks</h3>
+	<p th:inline="text">Welcome [[${taskOwner.firstName}]]</p>
+	<!--  <p th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</p> -->
+	<!-- <p  th:text="${taskOwner.firstName}"> -->
 	<hr>
 	
 	<!-- add a button -->
@@ -93,9 +100,6 @@
 		</tbody>		
 	</table>
 	
-	<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Logout" class="btn btn-primary btn-sm mb-3"/>
-    </form>
 	
 </div>
 	

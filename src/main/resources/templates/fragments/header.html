@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragments="header" >
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link th:href="@{/css/demo.css}" rel="stylesheet" />
+
+
+	<title>Task Management</title>
+</head>
+
+<body>
+
+<!-- New body -->
+ <!--  
+<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Task Management</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li th:classappend="${module == 'home' ? 'active' : ''}">
+              <a href="/">My Tasks</a>
+            </li>
+            <li th:classappend="${module == 'tasks' ? 'active' : ''}">
+              <a href="#" th:href="@{/owner/showOwnerPreferences(ownerId=${taskOwner.id})}">Options</a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">
+                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+              </a>
+             <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+-->
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Task Management</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="navbar-collapse collapse" id="navbarNavDropdown">
+    <ul class="nav navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/">My Tasks <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/owner/showOwnerPreferences(ownerId=${taskOwner.id})}">Options</a>
+      </li>
+      </ul>
+      <ul class="nav navbar-nav ml-auto">
+      <li >
+        <!--  <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">
+        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+        </a>-->
+        <form   id="form" method="post" action="#" th:action="@{/logout}">
+        <input type="submit" value="Logout" class="btn btn-secondary btn-sm mb-1"/>
+        </form>
+      </li>
+      </ul>
+  </div>
+</nav>
+
+
+
+</html>
