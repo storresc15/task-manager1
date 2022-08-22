@@ -54,12 +54,20 @@ private UserService userService;
 		Boolean displayCategories = !theTaskOwner.getPrioritySelection().equals("Default");
 		System.out.println("The display Categories selection: " + theTaskOwner.getPrioritySelection() + " Hence the boolean value: " + displayCategories);
 		
+		int percent = 0;
+		
+		for(TaskCategory tc : theTaskOwner.getCategories()) {
+			percent += tc.getPercentage();
+		}
+		
+		
 		//set task as a model attribute to pre-populate the form
 		theModel.addAttribute("taskOwner", theTaskOwner);
 		theModel.addAttribute("sortSelection",selectionOptions);
 		theModel.addAttribute("categories", theTaskOwner.getCategories());
 		theModel.addAttribute("displayCategories", displayCategories);
 		theModel.addAttribute("authOwner", theAuthOwner);
+		theModel.addAttribute("categoryPercent", percent);
 		
 		//send over to our form
 		return "task-owners/owner-preferences";

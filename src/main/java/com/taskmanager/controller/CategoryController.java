@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.taskmanager.entity.TaskCategory;
 import com.taskmanager.entity.TaskOwner;
@@ -36,6 +37,7 @@ public class CategoryController {
 		TaskCategory theTaskCategory = new TaskCategory();
 		TaskOwner theOwner = taskOwnerService.findByEmail(currentPrincipalName);
 		Boolean isCreate = true;
+		
 		
 		theModel.addAttribute("taskCategory",theTaskCategory);
 		theModel.addAttribute("taskOwner", theOwner);
@@ -68,12 +70,13 @@ public class CategoryController {
 	//Save Action
 	
 	@PostMapping("/save")
-	public String saveTaskCategory(@ModelAttribute("taskCategory") TaskCategory theTaskCategory) {
+	public String saveTaskCategory(@ModelAttribute("taskCategory") TaskCategory theTaskCategory, RedirectAttributes redirectAttrs) {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = auth.getName();
+		TaskOwner theOwner = taskOwnerService.findByEmail(currentPrincipalName);
+		
 		if(theTaskCategory.getOwner() == null) {
-			TaskOwner theOwner = taskOwnerService.findByEmail(currentPrincipalName);
 			theTaskCategory.setOwner(theOwner);
 		}
 		if(theTaskCategory.getPriority() == 0) {
@@ -81,6 +84,23 @@ public class CategoryController {
 		}
 		if(theTaskCategory.getPercentage() == 0) {
 			theTaskCategory.setPercentage(1);
+		}
+		
+		int percent = 0;
+		
+		for(TaskCategory tc : theOwner.getCategories()) {
+			if(tc.getId() != theTaskCategory.getId()) {
+			percent += tc.getPercentage();
+			System.out.println("The current percent: " + percent);
+			}
+		}
+		percent += theTaskCategory.getPercentage();
+		System.out.println("The current percent at the end: " + percent);
+		//Error handling on Category Save if % goes over 100%
+		if(percent > 100){
+			//model.addAttribute("errorMessage","Percentage cannot go over 100 %");
+			redirectAttrs.addFlashAttribute("errorMessage","Percentage cannot go over 100 %");
+		    return "redirect:/categories/showFormForUpdate?categoryId="+theTaskCategory.getId();
 		}
 		
 		//Save the task

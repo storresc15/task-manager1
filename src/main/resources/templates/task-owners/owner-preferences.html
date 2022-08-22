@@ -69,6 +69,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 		class="btn btn-primary btn-sm mb-3">
 		Add Category
 	</a>
+	<div th:if="${#strings.toString(taskOwner.prioritySelection)} == 'CategoryPercent'">
+	<p>Current Percent: [[${categoryPercent}]]</p>
+	</div>
 		<table class="table table-bordered table-striped">
 		<thead class="thead-dark">
 			<tr>
