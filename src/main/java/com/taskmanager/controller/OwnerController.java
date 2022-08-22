@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.taskmanager.entity.Task;
+import com.taskmanager.entity.TaskCategory;
 import com.taskmanager.entity.TaskOwner;
 import com.taskmanager.entity.User;
 import com.taskmanager.service.TaskOwnerService;
@@ -38,6 +39,12 @@ private UserService userService;
 		//get the task from the service
 		TaskOwner theTaskOwner = taskOwnerService.findById(theId);
 		
+		//Get the authenticated Onwer
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = auth.getName();
+		
+		TaskOwner theAuthOwner = taskOwnerService.findByEmail(currentPrincipalName);
+		
 		//Add the Sort Selection for user
 		String[] selectionOptions = {
 		          "Default", "CategoryPercent", "CategoryGrade"
@@ -52,6 +59,7 @@ private UserService userService;
 		theModel.addAttribute("sortSelection",selectionOptions);
 		theModel.addAttribute("categories", theTaskOwner.getCategories());
 		theModel.addAttribute("displayCategories", displayCategories);
+		theModel.addAttribute("authOwner", theAuthOwner);
 		
 		//send over to our form
 		return "task-owners/owner-preferences";
@@ -70,7 +78,8 @@ private UserService userService;
 		taskOwnerService.save(theTaskOwner);
 		
 		//Use a redirect to prevent duplicate submission
-		return "redirect:updateSuccess?ownerId="+theTaskOwner.getId();
+		//return "redirect:updateSuccess?ownerId="+theTaskOwner.getId();
+		return "redirect:/owner/showOwnerPreferences?ownerId="+theTaskOwner.getId();
 	}
 	
 	@GetMapping("/updateSuccess")

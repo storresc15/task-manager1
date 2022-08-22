@@ -18,12 +18,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 </head>
 
 <body>
-
+<div th:if="${isCreate or task.owner.id == taskOwner.id}">
 <div class="container">
-	<h3>Task Management</h3>
+	<h3> [[${task.title}]] </h3>
 	<hr>
 	
-	<p class="h4 mb-4"> Save Task </p>
+	<p class="h5 mb-4"> Details </p>
 	<form action ="#" th:action="@{/tasks/save}"
 			th:object="${task}" method="POST">
 	
@@ -68,7 +68,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	
 	<input type="date" th:field="*{dueDate}" class="form-control mb-4 col-4"
        placeholder="Due Date">
-    <h4>Completed?</h4>
+    <h5>Completed?</h5>
     <input class="form-control mb-4 col-1" type="checkbox" th:field="*{completed}">
 
 		
@@ -79,7 +79,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	<hr>
 	<a th:href="@{/tasks/list}">Back to Task List</a>
 </div>
-
+</div>
 </body>
 
 </html>

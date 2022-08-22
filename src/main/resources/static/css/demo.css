@@ -8,3 +8,8 @@
 	overflow: hidden; 
 	max-width:19px;
 }
+
+.loginIcon {
+	width: 1px;
+	height: 1px;
+}
