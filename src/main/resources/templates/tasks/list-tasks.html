@@ -66,8 +66,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 				<th>Description</th>
 				<th>Created Date</th>
 				<th>Due Date</th>
-				<th>Priority</th>
-				<th>Owner</th>
+				<th th:if="${!displayCategories}">Priority</th>
+				<th th:if="${displayCategories}">Category</th>
 				<th>Completed</th>
 				<th>Action</th>
 			</tr>
@@ -80,8 +80,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 				<td class="wrappedDescription" th:text="${tempTask.description}" />	
 				<td th:text="${tempTask.createdDate}" />
 				<td th:text="${tempTask.dueDate}" />
-				<td th:text="${tempTask.priority}" />  
-				<td th:text="${tempTask.owner.email}" />
+				<td th:if="${!displayCategories}" th:text="${tempTask.priority}" /> 
+				<td th:if="${displayCategories}" th:text="${tempTask.category.name}" />  
 				<td th:text="${tempTask.completed}" />	
 				
 				<!-- Add update button/link -->

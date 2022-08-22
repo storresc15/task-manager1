@@ -16,7 +16,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 </head>
 
 <body>
-
+<div th:if="${isCreate or taskCategory.owner.id == taskOwner.id}">
 <div class="container">
 	<h3>Task Management Categories</h3>
 	<hr>
@@ -53,9 +53,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	</form>
 	
 	<hr>
-	<a th:href="@{/tasks/list}">Back to Task List</a>
+	<a th:href="@{/owner/showOwnerPreferences(ownerId=${taskOwner.id})}">Back to Settings</a>
 </div>
-
+</div>
 </body>
 
 </html>

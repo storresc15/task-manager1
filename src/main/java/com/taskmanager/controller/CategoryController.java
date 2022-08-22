@@ -35,9 +35,12 @@ public class CategoryController {
 		
 		TaskCategory theTaskCategory = new TaskCategory();
 		TaskOwner theOwner = taskOwnerService.findByEmail(currentPrincipalName);
+		Boolean isCreate = true;
 		
 		theModel.addAttribute("taskCategory",theTaskCategory);
 		theModel.addAttribute("taskOwner", theOwner);
+		theModel.addAttribute("isCreate", isCreate);
+		
 		
 		return "categories/category-form";
 	}
@@ -51,10 +54,12 @@ public class CategoryController {
 		//get the task from the service
 		TaskCategory theTaskCategory = categoryService.findById(theId);
 		TaskOwner theOwner = taskOwnerService.findByEmail(currentPrincipalName);
+		Boolean isCreate = false;
 		
 		//set task as a model attribute to pre-populate the form
 		theModel.addAttribute("taskCategory", theTaskCategory);
 		theModel.addAttribute("taskOwner", theOwner);
+		theModel.addAttribute("isCreate", isCreate);
 		
 		//send over to our form
 		return "categories/category-form";

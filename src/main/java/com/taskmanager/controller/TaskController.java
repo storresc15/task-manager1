@@ -48,12 +48,14 @@ public class TaskController {
 		
 		TaskOwner theOwner = taskOwnerService.findByEmail(currentPrincipalName); //Testing by adding id 1
 		//TaskOwner theOwner = taskOwnerService.findByEmail(principal.); 
+		Boolean displayCategories = !theOwner.getPrioritySelection().equals("Default");
 		
 		List<Task> theTasks = taskService.sortPriorityTasks(theOwner, theOwner.getTasks()); // Consider here adding the owner as param for algorithm to get preference information
 
 		// add to the spring model - NEW consider including a second attribute for the owner
 		theModel.addAttribute("tasks", theTasks);
 		theModel.addAttribute("taskOwner", theOwner);
+		theModel.addAttribute("displayCategories",displayCategories);
 		
 		return "tasks/list-tasks";
 	}
@@ -86,6 +88,7 @@ public class TaskController {
 		TaskOwner theOwner = taskOwnerService.findByEmail(currentPrincipalName);
 		
 		Boolean displayCategories = !theOwner.getPrioritySelection().equals("Default");
+		Boolean isCreate = true;
 		
 		List<TaskCategory> selectionOptions = new ArrayList<TaskCategory>();
 		
@@ -102,6 +105,7 @@ public class TaskController {
 		theModel.addAttribute("task",theTask);
 		theModel.addAttribute("displayCategories",displayCategories);
 		theModel.addAttribute("taskOwner",theOwner);
+		theModel.addAttribute("isCreate",isCreate);
 		
 		return "tasks/task-form";
 	}
@@ -116,6 +120,7 @@ public class TaskController {
 		TaskOwner theOwner = taskOwnerService.findByEmail(currentPrincipalName);
 		
 		Boolean displayCategories = !theOwner.getPrioritySelection().equals("Default");
+		Boolean isCreate = false;
 		
 		List<TaskCategory> selectionOptions = new ArrayList<TaskCategory>();
 		
@@ -130,6 +135,7 @@ public class TaskController {
 		theModel.addAttribute("task", theTask);
 		theModel.addAttribute("displayCategories",displayCategories);
 		theModel.addAttribute("taskOwner",theOwner);
+		theModel.addAttribute("isCreate",isCreate);
 		
 		//send over to our form
 		return "tasks/task-form";

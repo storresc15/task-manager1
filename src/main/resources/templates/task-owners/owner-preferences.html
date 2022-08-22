@@ -16,7 +16,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 </head>
 
 <body>
-
+<div th:if="${taskOwner.id == authOwner.id}">
 <div class="container">
 	<h3>Task Management Owner</h3>
 	<hr>
@@ -108,7 +108,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	</div>
 		
 
-
+</div>
 </body>
 
 </html>
