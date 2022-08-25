@@ -35,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .loginPage("/login")
             .usernameParameter("username")
             .permitAll()
+            .defaultSuccessUrl("/tasks/list", true)
             .and()
             .logout().permitAll();     
     }

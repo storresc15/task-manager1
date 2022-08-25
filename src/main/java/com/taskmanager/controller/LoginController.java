@@ -76,5 +76,6 @@ public class LoginController {
 	    taskCategoryService.save(category);
 	     
 	    return "register_success";
+	    
 	}
 }
