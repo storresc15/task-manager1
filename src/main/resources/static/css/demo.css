@@ -1,12 +1,12 @@
-.funny {
-	font-style: italic;
-	color: green;
-}
 .wrappedDescription {
 	white-space: nowrap; 
 	text-overflow:ellipsis; 
 	overflow: hidden; 
 	max-width:19px;
+}
+
+.highlight{
+    background-color: red
 }
 
 .loginIcon {
