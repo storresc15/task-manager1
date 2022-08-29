@@ -1,7 +1,9 @@
 package com.taskmanager.controller;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,11 +53,15 @@ public class TaskController {
 		Boolean displayCategories = !theOwner.getPrioritySelection().equals("Default");
 		
 		List<Task> theTasks = taskService.sortPriorityTasks(theOwner, theOwner.getTasks()); // Consider here adding the owner as param for algorithm to get preference information
-
+		
+		//Display Red highlight if date is passed
+		String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		
 		// add to the spring model - NEW consider including a second attribute for the owner
 		theModel.addAttribute("tasks", theTasks);
 		theModel.addAttribute("taskOwner", theOwner);
 		theModel.addAttribute("displayCategories",displayCategories);
+		theModel.addAttribute("today",today);
 		
 		return "tasks/list-tasks";
 	}
