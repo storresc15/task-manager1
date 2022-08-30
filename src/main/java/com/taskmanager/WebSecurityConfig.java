@@ -29,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
         	.antMatchers("/login", "/register", "/process_register").permitAll() // anonym can login or register
+        	.antMatchers("/img/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .formLogin()

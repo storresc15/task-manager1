@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.luv2code.springboot</groupId>
-	<artifactId>thymeleafdemo</artifactId>
+	<artifactId>taskmanagerst1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>thymeleafdemo</name>
+	<name>taskmanagerst1</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
