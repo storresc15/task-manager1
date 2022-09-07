@@ -10,12 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.taskmanager.entity.Task;
 import com.taskmanager.entity.TaskCategory;
 import com.taskmanager.entity.TaskOwner;
 import com.taskmanager.entity.User;
 import com.taskmanager.service.TaskOwnerService;
-import com.taskmanager.service.TaskService;
 import com.taskmanager.service.UserService;
 
 @Controller
@@ -23,12 +21,10 @@ import com.taskmanager.service.UserService;
 public class OwnerController {
 	
 private TaskOwnerService taskOwnerService;
-private TaskService taskService;
 private UserService userService;
 	
 	//constructor injection
-	public OwnerController(TaskService theTaskService, TaskOwnerService theTaskOwners, UserService theUserService) {
-		taskService = theTaskService;
+	public OwnerController(TaskOwnerService theTaskOwners, UserService theUserService) {
 		taskOwnerService = theTaskOwners;
 		userService = theUserService;
 	}
@@ -52,7 +48,6 @@ private UserService userService;
 		
 		//Display the categories
 		Boolean displayCategories = !theTaskOwner.getPrioritySelection().equals("Default");
-		System.out.println("The display Categories selection: " + theTaskOwner.getPrioritySelection() + " Hence the boolean value: " + displayCategories);
 		
 		int percent = 0;
 		

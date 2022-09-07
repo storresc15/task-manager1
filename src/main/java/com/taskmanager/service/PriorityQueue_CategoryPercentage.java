@@ -23,21 +23,13 @@ public List<Task> setPriority(TaskOwner theOwner, List<Task> theTasks) throws Pa
 		
 		List<TaskCategory> categories = theOwner.getCategories();
 		
-		//Get the map
-		/*Map<String, Integer> categoryMap = new HashMap<String, Integer>();
-		
-		for(TaskCategory tc : categories) {
-			categoryMap.put(tc.getName(), tc.getPriority());
-		}*/
-		
-		//Test if this way of using streams and collectors work for building the map
+		//Using streams and collectors work for building the map
 		Map<String, Integer> categoryMap = categories.stream()
 				.collect(Collectors.toMap(TaskCategory::getName,
 						TaskCategory::getPriority,
 						(a, b) -> { return (a+b)/2;})
 						// Or (a, b) -> (a+b)/2
 						);
-		System.out.println("----------The map from the priority category class: " + categoryMap);
 		
 		PriorityQueue<Task> priorityQueue = new PriorityQueue<>();
 		for(Task theTask : theTasks) {
