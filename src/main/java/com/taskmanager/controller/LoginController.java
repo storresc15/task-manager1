@@ -46,8 +46,6 @@ public class LoginController {
 	@PostMapping("/process_register")
 	public String processRegister(User user, TaskOwner owner) {
 		
-		System.out.println("------------------------Inside the process Register the user: " + user);
-		
 	    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	    String encodedPassword = passwordEncoder.encode(user.getPassword());
 	    user.setPassword(encodedPassword);
@@ -58,10 +56,6 @@ public class LoginController {
 	    owner.setUser(user);
 	    user.setEnabled(true);
 	    user.setRole("ROLE_USER");
-	    
-	    
-	    System.out.println("Inside the process Register the user: " + user);
-	    System.out.println("Inside the process Register the owner: " + owner);
 	     
 	    userService.save(user);
 	    taskOwnerService.save(owner);

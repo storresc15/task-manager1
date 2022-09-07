@@ -91,11 +91,9 @@ public class CategoryController {
 		for(TaskCategory tc : theOwner.getCategories()) {
 			if(tc.getId() != theTaskCategory.getId()) {
 			percent += tc.getPercentage();
-			System.out.println("The current percent: " + percent);
 			}
 		}
 		percent += theTaskCategory.getPercentage();
-		System.out.println("The current percent at the end: " + percent);
 		//Error handling on Category Save if % goes over 100%
 		if(percent > 100){
 			//model.addAttribute("errorMessage","Percentage cannot go over 100 %");
