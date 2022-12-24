@@ -30,7 +30,7 @@ public class Task implements Comparable<Task> {
 	@JoinColumn(name="owner_id")
 	private TaskOwner owner;
 	
-	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
 			CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinColumn(name="category_id")
 	private TaskCategory category;

@@ -13,7 +13,6 @@ import com.taskmanager.entity.TaskCategory;
 public class TaskCategoryServiceImpl implements TaskCategoryService {
 	
 	private TaskCategoryRepository taskCategoryRepository;
-	
 	@Autowired
 	public TaskCategoryServiceImpl(TaskCategoryRepository theCategoryRepository) {
 		taskCategoryRepository = theCategoryRepository;
@@ -31,6 +30,7 @@ public class TaskCategoryServiceImpl implements TaskCategoryService {
 
 	@Override
 	public void deleteById(int theId) {
+
 		taskCategoryRepository.deleteById(theId);
 		
 	}

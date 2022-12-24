@@ -42,7 +42,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	
 	<div th:if="${#strings.toString(taskOwner.prioritySelection)} == 'CategoryPercent'">
 	<h5>Percentage</h5>
-	<input type="range" th:field="*{percentage}" class="form-range mb-4" min="1" max="100" step="7" oninput="num.value = this.value">
+	<input type="range" th:field="*{percentage}" class="form-range mb-4" min="1" th:max="${maxPercent}" step="1" oninput="num.value = this.value">
 	<output id="num">0</output>
 	 <span th:if="${errorMessage}"  th:text="${errorMessage}">Error</span>
 	</div>

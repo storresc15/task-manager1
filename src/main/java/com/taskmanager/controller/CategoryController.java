@@ -30,18 +30,27 @@ public class CategoryController {
 	
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
-		//create model attrigute to bind form data
+		//create model attribute to bind form data
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = auth.getName();
 		
 		TaskCategory theTaskCategory = new TaskCategory();
 		TaskOwner theOwner = taskOwnerService.findByEmail(currentPrincipalName);
 		Boolean isCreate = true;
+		int maxPercentage = 100;
+		int percent = 0;
 		
-		
+		//Get the percentage to add max value on form
+		for(TaskCategory tc : theOwner.getCategories()) {
+			if(tc.getId() != theTaskCategory.getId()) {
+			percent += tc.getPercentage();
+			}
+		}
+		maxPercentage = maxPercentage - percent;
 		theModel.addAttribute("taskCategory",theTaskCategory);
 		theModel.addAttribute("taskOwner", theOwner);
 		theModel.addAttribute("isCreate", isCreate);
+		theModel.addAttribute("maxPercent", maxPercentage);
 		
 		
 		return "categories/category-form";
@@ -57,11 +66,22 @@ public class CategoryController {
 		TaskCategory theTaskCategory = categoryService.findById(theId);
 		TaskOwner theOwner = taskOwnerService.findByEmail(currentPrincipalName);
 		Boolean isCreate = false;
+		int maxPercentage = 100;
+		int percent = 0;
 		
+		//Get the percentage to add max value on form
+		for(TaskCategory tc : theOwner.getCategories()) {
+			if(tc.getId() != theTaskCategory.getId()) {
+			percent += tc.getPercentage();
+			}
+		}
+		
+		maxPercentage = maxPercentage - percent;
 		//set task as a model attribute to pre-populate the form
 		theModel.addAttribute("taskCategory", theTaskCategory);
 		theModel.addAttribute("taskOwner", theOwner);
 		theModel.addAttribute("isCreate", isCreate);
+		theModel.addAttribute("maxPercent", maxPercentage);
 		
 		//send over to our form
 		return "categories/category-form";
